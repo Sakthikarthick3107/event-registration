@@ -1,7 +1,12 @@
 import React from 'react'
-import { EventType } from '../App'
+import { EventType } from '../App';
+import { useDispatch } from 'react-redux';
+import { setEvent } from '../redux/actions';
 
 const EventCard = ({event} :{event: EventType}) => {
+
+  const dispatch = useDispatch();
+
   return (
     <div  className='bg-gray-100 flex flex-col items-center shadow-md min-w-[300px] w-[300px] rounded-lg px-4 py-2'>
         <p className='text-lg font-bold'>{event.name}</p>
@@ -11,7 +16,7 @@ const EventCard = ({event} :{event: EventType}) => {
         {event.availability === 0 ? 
             <button className=' bg-gradient-to-r from-red-600 to-red-700 px-4 py-1 text-text rounded-md shadow-md'>Full</button>
         :
-            <button className=' bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-1 text-text rounded-md shadow-md'>Apply</button>
+            <button onClick={()=> dispatch(setEvent(event))} className=' bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-1 text-text rounded-md shadow-md'>Apply</button>
         }
         
     </div>

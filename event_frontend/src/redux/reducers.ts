@@ -2,7 +2,7 @@ import { EventType } from "../App";
 import { SET_EVENT } from "./actions";
 
 
-type State = {
+export type State = {
     selectedEvent : null | EventType
 }
 

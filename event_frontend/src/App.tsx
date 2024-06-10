@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import API from './API'
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import EventCard from './components/EventCard';
+import { State } from './redux/reducers';
+import LineInput from './components/LineInput';
 
 export type EventType = {
   id: string,
@@ -15,8 +16,14 @@ export type EventType = {
 }
 
 function App() {
+  const selectedEvent : EventType = useSelector<State>(state => state.selectedEvent);
 
   const[events,setEvents] = useState<[] | EventType[]>([]);
+  const[formData, setFormData] = useState({
+                                              name: "",
+                                              email: "",
+                                              eventId: selectedEvent ? selectedEvent.id : ""
+                                            })
 
   const fetchData = async() =>{
     try {
@@ -34,6 +41,11 @@ function App() {
     fetchData();
   },[])
 
+  const handleFormChange = (e : ChangeEvent<HTMLInputElement>) => {
+    const{name,value} = e.target;
+    setFormData({...formData, [name] : value})
+  }
+
   return (
     <div className='flex flex-col h-[100vh] w-full flex-wrap'>
       <Header/>
@@ -43,6 +55,19 @@ function App() {
         ))}
       </div>
 
+      <div className='flex flex-col w-full items-center p-10'>
+        {selectedEvent && 
+          <div className=' w-1/2  bg-text shadow-lg rounded-lg flex flex-col p-8'>
+
+            <LineInput placeholder='Enter your name' name='name' onChange={handleFormChange}  type='text' value={formData.name}/>
+            <LineInput placeholder='Email id here' name='email' onChange={handleFormChange} type='text' value={formData.email}/>
+
+            <p>Event Details</p>
+            <p className='font-semibold'>{selectedEvent.name} - Event id {selectedEvent.id}</p>
+            <button className='px-4 py-2 bg-blue-500 my-2 text-text text-lg'>Register</button>
+          </div>
+        }
+      </div>
     </div>
   )
 }
