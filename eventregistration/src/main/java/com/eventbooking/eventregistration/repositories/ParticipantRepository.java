@@ -18,6 +18,8 @@ public interface ParticipantRepository extends JpaRepository<Participant,UUID> {
 
     List<Participant> findByEventId(String eventId);
 
+    @Query("SELECT p from Participant p ORDER BY p.name ASC")
+    List<Participant> getParticipantsOrderByName();
 
     @Query("SELECT p FROM Participant p WHERE p.pid=:pid")
     Participant getParticipantById(@Param("pid")UUID pid);

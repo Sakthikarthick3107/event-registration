@@ -39,6 +39,12 @@ public class ParticipantController {
         return participantService.getParticipantByEventId(eventId);
     }
 
+    @GetMapping("/asc")
+    @Operation(summary = "Participants in Name Order")
+    List<Participant> getParticipantsInOrder(){
+        return participantService.participantsOrderByName();
+    }
+
     @PostMapping
     @Operation(summary = "Register Participant")
     Participant registerEvent(@RequestBody ParticipantDTO details){

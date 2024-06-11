@@ -1,0 +1,21 @@
+.slide-in {
+    transform: translateX(100%);
+    animation: slide-in 0.3s forwards;
+  }
+  
+  .slide-out {
+    animation: slide-out 0.3s forwards;
+  }
+  
+  @keyframes slide-in {
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slide-out {
+    to {
+      transform: translateX(100%);
+    }
+  }
+  

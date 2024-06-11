@@ -27,6 +27,8 @@ public class ParticipantService {
         return participantRepository.findAll();
     }
 
+    public List<Participant> participantsOrderByName() { return participantRepository.getParticipantsOrderByName();}
+
     public Participant getParticipantById(UUID pid){
         return participantRepository.getParticipantById(pid);
     }
